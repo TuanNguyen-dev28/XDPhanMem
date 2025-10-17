@@ -41,6 +41,14 @@ public class User {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    public void setPasswordHash(String encode) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    public void setRole(Role role) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
     public enum Role { user, admin }
 
     public String getUsername() {
