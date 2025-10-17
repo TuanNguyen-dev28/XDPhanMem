@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đăng nhập</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f8f9fa;
+      }
+      .login-container {
+        max-width: 400px;
+        padding: 2rem;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <h2 class="text-center mb-4">Đăng Nhập</h2>
+      <!-- Hiển thị lỗi nếu đăng nhập sai -->
+      <div th:if="${param.error}" class="alert alert-danger">
+        Tên đăng nhập hoặc mật khẩu không đúng.
+      </div>
+      <!-- Hiển thị thông báo khi đăng xuất thành công -->
+      <div th:if="${param.logout}" class="alert alert-success">
+        Bạn đã đăng xuất thành công.
+      </div>
+      <form th:action="@{/login}" method="post">
+        <div class="mb-3">
+          <label for="username" class="form-label">Tên đăng nhập</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            class="form-control"
+            required
+            autofocus
+          />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mật khẩu</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            class="form-control"
+            required
+          />
+        </div>
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary">Đăng nhập</button>
+        </div>
+        <div class="text-center mt-3">
+          <p>Chưa có tài khoản? <a th:href="@{/register}">Đăng ký ngay</a></p>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
