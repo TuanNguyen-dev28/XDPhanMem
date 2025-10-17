@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Đăng nhập / Đăng ký</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/sign.css}" />
+    <!-- Font Awesome for social icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!--
+    Thêm class 'right-panel-active' nếu có thuộc tính 'showRegister'
+    để kích hoạt panel đăng ký khi tải trang.
+  -->
+    <div
+      class="container"
+      id="container"
+      th:classappend="${showRegister} ? 'right-panel-active' : ''"
+    >
+      <!-- FORM ĐĂNG KÝ -->
+      <div class="form-container sign-up-container">
+        <form th:action="@{/register}" method="post" th:object="${user}">
+          <h1>Tạo tài khoản</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>hoặc sử dụng email của bạn để đăng ký</span>
+
+          <!-- Hiển thị lỗi đăng ký nếu có -->
+          <div
+            th:if="${errorMessage}"
+            class="alert alert-danger"
+            th:text="${errorMessage}"
+            style="color: red; font-size: 12px; margin: 5px 0"
+          ></div>
+
+          <input
+            type="text"
+            placeholder="Họ và Tên"
+            th:field="*{name}"
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            th:field="*{email}"
+            required
+          />
+          <input
+            type="text"
+            placeholder="Tên đăng nhập"
+            th:field="*{username}"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            th:field="*{passwordHash}"
+            required
+          />
+          <button type="submit">Đăng ký</button>
+        </form>
+      </div>
+
+      <!-- FORM ĐĂNG NHẬP -->
+      <div class="form-container sign-in-container">
+        <form th:action="@{/login}" method="post">
+          <h1>Đăng nhập</h1>
+          <div class="social-container">
+            <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+            <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+          <span>hoặc sử dụng tài khoản của bạn</span>
+
+          <!-- Hiển thị lỗi đăng nhập sai -->
+          <div
+            th:if="${param.error}"
+            class="alert alert-danger"
+            style="color: red; font-size: 12px; margin: 5px 0"
+          >
+            Tên đăng nhập hoặc mật khẩu không đúng.
+          </div>
+          <!-- Hiển thị thông báo đăng ký thành công -->
+          <div
+            th:if="${param.register_success}"
+            class="alert alert-success"
+            style="color: green; font-size: 12px; margin: 5px 0"
+          >
+            Đăng ký thành công! Vui lòng đăng nhập.
+          </div>
+
+          <input
+            type="text"
+            placeholder="Tên đăng nhập"
+            name="username"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Mật khẩu"
+            name="password"
+            required
+          />
+          <a href="#">Quên mật khẩu?</a>
+          <button type="submit">Đăng nhập</button>
+        </form>
+      </div>
+
+      <!-- OVERLAY -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Chào mừng trở lại!</h1>
+            <p>
+              Để giữ kết nối với chúng tôi, vui lòng đăng nhập bằng thông tin cá
+              nhân của bạn
+            </p>
+            <button class="ghost" id="signIn">Đăng nhập</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>Chào bạn!</h1>
+            <p>
+              Nhập thông tin cá nhân của bạn và bắt đầu hành trình với chúng tôi
+            </p>
+            <button class="ghost" id="signUp">Đăng ký</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/js/sign.js}"></script>
+  </body>
+</html>
